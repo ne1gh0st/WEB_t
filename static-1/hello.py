@@ -1,6 +1,7 @@
 from cgi import parse_qs
 
 def app(environ, start_response):
-      start_response('200 OK',[('Content-Type','text/plain')])
-      qs = parse_qs(environ['QUERY_STRING'])
-      return ['%s=%s\n' % (k, qs[k][0]) for k in qs]
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/plain')]
+    start_response(status, response_headers)
+    return [environ['QUERY_STRING'].replace('&', '\n')]
